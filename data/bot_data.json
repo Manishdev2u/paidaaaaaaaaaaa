@@ -1,0 +1,21 @@
+{
+  "tasks": [],
+  "withdrawal_requests": [
+    {
+      "id": "49773d81-5c13-4fa7-8735-73ced19bf761",
+      "user_id": 6580698563,
+      "amount": 1105.0,
+      "upi_id": "9876543210@paytm",
+      "timestamp": 1761903857.9312208,
+      "status": "approved",
+      "processed_at": 1761903876.0428655
+    }
+  ],
+  "settings": {
+    "min_withdrawal": 10,
+    "referral_reward": 2,
+    "default_welcome_bonus": 5,
+    "referral_milestone_count": 5,
+    "referral_milestone_reward": 10
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "6580698563": {
+    "id": 6580698563,
+    "first_name": "Manish",
+    "username": "MnhDevTip",
+    "balance": 14.0,
+    "total_earnings": 10.0,
+    "completed_tasks": [
+      "32e4f7bc-caf1-45c0-9b17-d2dab3e3abf4",
+      "1f87dc8b-e60f-4bb3-aebf-d35d36ae80c1"
+    ],
+    "referrals": 2,
+    "referred_by": null,
+    "joined_at": 1761903320.1308062,
+    "current_task": null,
+    "language": "english",
+    "custom_settings": {
+      "referral_reward": null,
+      "milestone_count": null,
+      "milestone_reward": null,
+      "welcome_bonus": 5
+    }
+  },
+  "5367009004": {
+    "id": 5367009004,
+    "first_name": "Defaulter",
+    "username": "Defaulter124",
+    "balance": 5,
+    "total_earnings": 5,
+    "completed_tasks": [],
+    "referrals": 0,
+    "referred_by": 5367009004,
+    "joined_at": 1761907795.6475108,
+    "current_task": null,
+    "language": "hindi",
+    "custom_settings": {
+      "referral_reward": null,
+      "milestone_count": null,
+      "milestone_reward": null,
+      "welcome_bonus": 5
+    }
+  }
+}

@@ -1,0 +1,433 @@
+[
+  {
+    "timestamp": 1761903968.4755216,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761903968.4745235
+    },
+    "datetime": "2025-10-31 15:16:08"
+  },
+  {
+    "timestamp": 1761903992.5354471,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "'list' object has no attribute 'get'"
+    },
+    "datetime": "2025-10-31 15:16:32"
+  },
+  {
+    "timestamp": 1761904012.808203,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "'list' object has no attribute 'get'"
+    },
+    "datetime": "2025-10-31 15:16:52"
+  },
+  {
+    "timestamp": 1761904029.8231993,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "'list' object has no attribute 'get'"
+    },
+    "datetime": "2025-10-31 15:17:09"
+  },
+  {
+    "timestamp": 1761904039.7276714,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904039.7276714
+    },
+    "datetime": "2025-10-31 15:17:19"
+  },
+  {
+    "timestamp": 1761904062.9946196,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "'list' object has no attribute 'get'"
+    },
+    "datetime": "2025-10-31 15:17:42"
+  },
+  {
+    "timestamp": 1761904096.810573,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "'list' object has no attribute 'get'"
+    },
+    "datetime": "2025-10-31 15:18:16"
+  },
+  {
+    "timestamp": 1761904149.7198775,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904149.7193725
+    },
+    "datetime": "2025-10-31 15:19:09"
+  },
+  {
+    "timestamp": 1761904168.470763,
+    "user_id": 6580698563,
+    "action": "start_command",
+    "data": {},
+    "datetime": "2025-10-31 15:19:28"
+  },
+  {
+    "timestamp": 1761904190.1205223,
+    "user_id": 6580698563,
+    "action": "admin_task_toggled",
+    "data": {
+      "task_id": "32e4f7bc-caf1-45c0-9b17-d2dab3e3abf4",
+      "active": false
+    },
+    "datetime": "2025-10-31 15:19:50"
+  },
+  {
+    "timestamp": 1761904243.126285,
+    "user_id": 6580698563,
+    "action": "admin_task_deleted",
+    "data": {
+      "task_id": "32e4f7bc-caf1-45c0-9b17-d2dab3e3abf4",
+      "title": "New test"
+    },
+    "datetime": "2025-10-31 15:20:43"
+  },
+  {
+    "timestamp": 1761904276.5267587,
+    "user_id": 6580698563,
+    "action": "admin_task_added",
+    "data": {
+      "task_id": "1f87dc8b-e60f-4bb3-aebf-d35d36ae80c1",
+      "title": "tt",
+      "reward": 50.0,
+      "notified": 1
+    },
+    "datetime": "2025-10-31 15:21:16"
+  },
+  {
+    "timestamp": 1761904286.4938388,
+    "user_id": 6580698563,
+    "action": "task_requested",
+    "data": {
+      "task_id": "1f87dc8b-e60f-4bb3-aebf-d35d36ae80c1"
+    },
+    "datetime": "2025-10-31 15:21:26"
+  },
+  {
+    "timestamp": 1761904315.2716553,
+    "user_id": 6580698563,
+    "action": "screenshot_submitted",
+    "data": {
+      "task_id": "1f87dc8b-e60f-4bb3-aebf-d35d36ae80c1"
+    },
+    "datetime": "2025-10-31 15:21:55"
+  },
+  {
+    "timestamp": 1761904342.1417167,
+    "user_id": 6580698563,
+    "action": "task_approved",
+    "data": {
+      "task_id": "1f87dc8b-e60f-4bb3-aebf-d35d36ae80c1",
+      "reward": 50.0,
+      "approved_by": 6580698563
+    },
+    "datetime": "2025-10-31 15:22:22"
+  },
+  {
+    "timestamp": 1761904361.6046364,
+    "user_id": 6580698563,
+    "action": "withdrawal_initiated",
+    "data": {
+      "balance": 50.0
+    },
+    "datetime": "2025-10-31 15:22:41"
+  },
+  {
+    "timestamp": 1761904385.9244282,
+    "user_id": 6580698563,
+    "action": "admin_task_deleted",
+    "data": {
+      "task_id": "1f87dc8b-e60f-4bb3-aebf-d35d36ae80c1",
+      "title": "tt"
+    },
+    "datetime": "2025-10-31 15:23:05"
+  },
+  {
+    "timestamp": 1761904413.9812627,
+    "user_id": 6580698563,
+    "action": "admin_deduct_balance",
+    "data": {
+      "user_id": 6580698563,
+      "amount": 40.0
+    },
+    "datetime": "2025-10-31 15:23:33"
+  },
+  {
+    "timestamp": 1761904505.0491397,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904505.0481522
+    },
+    "datetime": "2025-10-31 15:25:05"
+  },
+  {
+    "timestamp": 1761904550.8980792,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904550.8970716
+    },
+    "datetime": "2025-10-31 15:25:50"
+  },
+  {
+    "timestamp": 1761904564.2212846,
+    "user_id": 6580698563,
+    "action": "start_command",
+    "data": {},
+    "datetime": "2025-10-31 15:26:04"
+  },
+  {
+    "timestamp": 1761904621.1728024,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904621.1718023
+    },
+    "datetime": "2025-10-31 15:27:01"
+  },
+  {
+    "timestamp": 1761904630.2649245,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904630.263923
+    },
+    "datetime": "2025-10-31 15:27:10"
+  },
+  {
+    "timestamp": 1761904644.6871789,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "name 'ADMIN_ID' is not defined"
+    },
+    "datetime": "2025-10-31 15:27:24"
+  },
+  {
+    "timestamp": 1761904661.7075639,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "name 'ADMIN_ID' is not defined"
+    },
+    "datetime": "2025-10-31 15:27:41"
+  },
+  {
+    "timestamp": 1761904696.0745065,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "name 'ADMIN_ID' is not defined"
+    },
+    "datetime": "2025-10-31 15:28:16"
+  },
+  {
+    "timestamp": 1761904717.753867,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "name 'ADMIN_ID' is not defined"
+    },
+    "datetime": "2025-10-31 15:28:37"
+  },
+  {
+    "timestamp": 1761904720.045398,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904720.044396
+    },
+    "datetime": "2025-10-31 15:28:40"
+  },
+  {
+    "timestamp": 1761904789.7926,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904789.7926
+    },
+    "datetime": "2025-10-31 15:29:49"
+  },
+  {
+    "timestamp": 1761904794.0360448,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized"
+    },
+    "datetime": "2025-10-31 15:29:54"
+  },
+  {
+    "timestamp": 1761904809.2851195,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized"
+    },
+    "datetime": "2025-10-31 15:30:09"
+  },
+  {
+    "timestamp": 1761904824.528929,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized"
+    },
+    "datetime": "2025-10-31 15:30:24"
+  },
+  {
+    "timestamp": 1761904832.945779,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904832.9447806
+    },
+    "datetime": "2025-10-31 15:30:32"
+  },
+  {
+    "timestamp": 1761904837.1854243,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized"
+    },
+    "datetime": "2025-10-31 15:30:37"
+  },
+  {
+    "timestamp": 1761904852.4117332,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized"
+    },
+    "datetime": "2025-10-31 15:30:52"
+  },
+  {
+    "timestamp": 1761904867.6508343,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized"
+    },
+    "datetime": "2025-10-31 15:31:07"
+  },
+  {
+    "timestamp": 1761904882.897419,
+    "user_id": 0,
+    "action": "bot_error",
+    "data": {
+      "error": "A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized"
+    },
+    "datetime": "2025-10-31 15:31:22"
+  },
+  {
+    "timestamp": 1761904890.9591348,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761904890.9576309
+    },
+    "datetime": "2025-10-31 15:31:30"
+  },
+  {
+    "timestamp": 1761907768.1948805,
+    "user_id": 0,
+    "action": "bot_started",
+    "data": {
+      "timestamp": 1761907768.1948805
+    },
+    "datetime": "2025-10-31 16:19:28"
+  },
+  {
+    "timestamp": 1761907796.8057878,
+    "user_id": 5367009004,
+    "action": "welcome_bonus_received",
+    "data": {
+      "amount": 5
+    },
+    "datetime": "2025-10-31 16:19:56"
+  },
+  {
+    "timestamp": 1761907796.809296,
+    "user_id": 5367009004,
+    "action": "user_registered",
+    "data": {
+      "referrer": 5367009004
+    },
+    "datetime": "2025-10-31 16:19:56"
+  },
+  {
+    "timestamp": 1761907797.3090892,
+    "user_id": 5367009004,
+    "action": "start_command",
+    "data": {},
+    "datetime": "2025-10-31 16:19:57"
+  },
+  {
+    "timestamp": 1761907805.5960124,
+    "user_id": 5367009004,
+    "action": "balance_checked",
+    "data": {
+      "balance": 5
+    },
+    "datetime": "2025-10-31 16:20:05"
+  },
+  {
+    "timestamp": 1761907809.9844704,
+    "user_id": 5367009004,
+    "action": "balance_checked",
+    "data": {
+      "balance": 5
+    },
+    "datetime": "2025-10-31 16:20:09"
+  },
+  {
+    "timestamp": 1761907840.164144,
+    "user_id": 5367009004,
+    "action": "start_command",
+    "data": {},
+    "datetime": "2025-10-31 16:20:40"
+  },
+  {
+    "timestamp": 1761907855.0945559,
+    "user_id": 6580698563,
+    "action": "start_command",
+    "data": {},
+    "datetime": "2025-10-31 16:20:55"
+  },
+  {
+    "timestamp": 1761907864.432113,
+    "user_id": 6580698563,
+    "action": "balance_checked",
+    "data": {
+      "balance": 14.0
+    },
+    "datetime": "2025-10-31 16:21:04"
+  },
+  {
+    "timestamp": 1761908289.4158194,
+    "user_id": 5367009004,
+    "action": "balance_checked",
+    "data": {
+      "balance": 5
+    },
+    "datetime": "2025-10-31 16:28:09"
+  }
+]
