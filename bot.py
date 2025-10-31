@@ -12,7 +12,7 @@ from typing import Dict, List, Any
 from flask import Flask
 
 BOT_TOKEN = "8213433040:AAFk1rWMQw0eAOeIGrGO7BaHYiP7VfL_tQs"
-ADMIN_IDS = [5367009004, 6580698563]  # List of admin user IDs
+ADMIN_ID = 5367009004
 
 BOT_USERNAME = os.getenv("BOT_USERNAME", "Tasktoearnmoneybot")
 MINIMUM_WITHDRAWAL = 10
@@ -27,10 +27,6 @@ ACTIVITY_LOG_FILE = "data/activity_log.json"
 TASK_SUBMISSIONS_FILE = "data/task_submissions.json"
 
 admin_state = {}
-
-def is_admin(user_id):
-    """Check if a user ID is in the admin list"""
-    return user_id in ADMIN_IDS
 
 MESSAGES = {
     "hindi": {
@@ -563,7 +559,7 @@ def start_command(message):
 
 @bot.message_handler(commands=['admin'])
 def admin_panel(message):
-    if not is_admin(message.from_user.id):
+    if message.from_user.id != ADMIN_ID:
         return
     
     keyboard = types.InlineKeyboardMarkup(row_width=2)
@@ -597,11 +593,11 @@ Select an option:
 ⚙️ Bot Settings - Global bot settings
 🔄 Refresh Panel - Refresh this panel"""
     
-    bot.send_message(message.from_user.id, admin_msg, reply_markup=keyboard, parse_mode='Markdown')
+    bot.send_message(ADMIN_ID, admin_msg, reply_markup=keyboard, parse_mode='Markdown')
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("admin_"))
 def handle_admin_callbacks(call):
-    if not is_admin(call.from_user.id):
+    if call.from_user.id != ADMIN_ID:
         return
     
     if call.data == "admin_users_list":
@@ -621,15 +617,15 @@ def handle_admin_callbacks(call):
     
     elif call.data == "admin_referral_settings":
         msg = bot.edit_message_text("🔍 User ID enter करें जिसके referral settings change करने हैं:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "search_user_for_referral", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "search_user_for_referral", "message_id": msg.message_id}
     
     elif call.data == "admin_adjust_balance":
         msg = bot.edit_message_text("🔍 User ID enter करें जिसका balance adjust करना है:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "search_user_for_balance", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "search_user_for_balance", "message_id": msg.message_id}
     
     elif call.data == "admin_block_user":
         msg = bot.edit_message_text("🔍 User ID enter करें जिसे block/unblock करना है:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "search_user_for_block", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "search_user_for_block", "message_id": msg.message_id}
     
     elif call.data == "admin_withdrawals":
         bot_data = get_bot_data()
@@ -734,7 +730,7 @@ Select an option:
     
     elif call.data == "admin_search_user":
         msg = bot.edit_message_text("🔍 User ID भेजें (number):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "search_user", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "search_user", "message_id": msg.message_id}
     
     elif call.data == "admin_global_settings":
         bot_data = get_bot_data()
@@ -810,39 +806,39 @@ Select an option:
     elif call.data.startswith("admin_set_ref_reward_"):
         user_id = int(call.data.replace("admin_set_ref_reward_", ""))
         msg = bot.edit_message_text(f"💰 User {user_id} के लिए Referral Reward enter करें:\n\n(रुपये में, या 'default' type करें)", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "set_ref_reward", "user_id": user_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "set_ref_reward", "user_id": user_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_set_milestone_count_"):
         user_id = int(call.data.replace("admin_set_milestone_count_", ""))
         msg = bot.edit_message_text(f"🎯 User {user_id} के लिए Milestone Count enter करें:\n\n(number, या 'default' type करें)", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "set_milestone_count", "user_id": user_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "set_milestone_count", "user_id": user_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_set_milestone_reward_"):
         user_id = int(call.data.replace("admin_set_milestone_reward_", ""))
         msg = bot.edit_message_text(f"🎁 User {user_id} के लिए Milestone Reward enter करें:\n\n(रुपये में, या 'default' type करें)", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "set_milestone_reward", "user_id": user_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "set_milestone_reward", "user_id": user_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_set_welcome_bonus_"):
         user_id = int(call.data.replace("admin_set_welcome_bonus_", ""))
         msg = bot.edit_message_text(f"🎉 User {user_id} के लिए Welcome Bonus enter करें:\n\n(रुपये में, या 'default' type करें)", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "set_welcome_bonus", "user_id": user_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "set_welcome_bonus", "user_id": user_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_add_balance_"):
         user_id = int(call.data.replace("admin_add_balance_", ""))
         msg = bot.edit_message_text(f"💰 User {user_id} के balance में add करने के लिए amount enter करें:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "add_balance", "user_id": user_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "add_balance", "user_id": user_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_deduct_balance_"):
         user_id = int(call.data.replace("admin_deduct_balance_", ""))
         msg = bot.edit_message_text(f"💸 User {user_id} के balance से deduct करने के लिए amount enter करें:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "deduct_balance", "user_id": user_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "deduct_balance", "user_id": user_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_block_"):
         user_id = int(call.data.replace("admin_block_", ""))
         block_user(user_id)
         bot.answer_callback_query(call.id, f"✅ User {user_id} blocked successfully!")
         bot.edit_message_text(f"🚫 User {user_id} has been blocked", call.message.chat.id, call.message.message_id)
-        log_activity(call.from_user.id, "user_blocked_by_admin", {"user_id": user_id})
+        log_activity(ADMIN_ID, "user_blocked_by_admin", {"user_id": user_id})
         try:
             bot.send_message(user_id, "🚫 आपका account admin द्वारा block कर दिया गया है।")
         except:
@@ -853,7 +849,7 @@ Select an option:
         unblock_user(user_id)
         bot.answer_callback_query(call.id, f"✅ User {user_id} unblocked successfully!")
         bot.edit_message_text(f"✅ User {user_id} has been unblocked", call.message.chat.id, call.message.message_id)
-        log_activity(call.from_user.id, "user_unblocked_by_admin", {"user_id": user_id})
+        log_activity(ADMIN_ID, "user_unblocked_by_admin", {"user_id": user_id})
         try:
             bot.send_message(user_id, "✅ आपका account unblock कर दिया गया है। अब आप bot use कर सकते हैं।")
         except:
@@ -861,35 +857,35 @@ Select an option:
     
     elif call.data == "admin_edit_global_min_withdrawal":
         msg = bot.edit_message_text("💸 सभी users के लिए Minimum Withdrawal amount enter करें (रुपये में):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "edit_global_min_withdrawal", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "edit_global_min_withdrawal", "message_id": msg.message_id}
     
     elif call.data == "admin_edit_global_ref_reward":
         msg = bot.edit_message_text("🔗 सभी users के लिए Referral Reward enter करें (रुपये में):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "edit_global_ref_reward", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "edit_global_ref_reward", "message_id": msg.message_id}
     
     elif call.data == "admin_edit_global_milestone_count":
         msg = bot.edit_message_text("🎯 सभी users के लिए Milestone Count enter करें (संख्या में):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "edit_global_milestone_count", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "edit_global_milestone_count", "message_id": msg.message_id}
     
     elif call.data == "admin_edit_global_milestone_reward":
         msg = bot.edit_message_text("🎁 सभी users के लिए Milestone Reward enter करें (रुपये में):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "edit_global_milestone_reward", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "edit_global_milestone_reward", "message_id": msg.message_id}
     
     elif call.data == "admin_edit_global_welcome_bonus":
         msg = bot.edit_message_text("🎉 सभी users के लिए Welcome Bonus enter करें (रुपये में):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "edit_global_welcome_bonus", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "edit_global_welcome_bonus", "message_id": msg.message_id}
     
     elif call.data == "admin_msg_single":
         msg = bot.edit_message_text("👤 **Send Message to Single User**\n\nUser ID enter करें जिसे message भेजना है:", call.message.chat.id, call.message.message_id, parse_mode='Markdown')
-        admin_state[call.from_user.id] = {"action": "msg_single_get_user", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "msg_single_get_user", "message_id": msg.message_id}
     
     elif call.data == "admin_msg_broadcast":
         msg = bot.edit_message_text("📢 **Broadcast Message to All Users**\n\nवह message type करें जो सभी users को भेजना है:", call.message.chat.id, call.message.message_id, parse_mode='Markdown')
-        admin_state[call.from_user.id] = {"action": "msg_broadcast_get_message", "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "msg_broadcast_get_message", "message_id": msg.message_id}
     
     elif call.data == "admin_task_add":
         msg = bot.edit_message_text("➕ **Add New Task**\n\n📝 Task का Title enter करें:", call.message.chat.id, call.message.message_id, parse_mode='Markdown')
-        admin_state[call.from_user.id] = {"action": "task_add_title", "message_id": msg.message_id, "task_data": {}}
+        admin_state[ADMIN_ID] = {"action": "task_add_title", "message_id": msg.message_id, "task_data": {}}
     
     elif call.data.startswith("admin_task_view_"):
         page = int(call.data.split("_")[-1])
@@ -955,7 +951,7 @@ Select an option:
                     success, failed = broadcast_notification(msg_text)
                     bot.send_message(ADMIN_ID, f"📢 Task activated! Notification sent to {success} users")
                 
-                log_activity(call.from_user.id, "admin_task_toggled", {"task_id": task_id, "active": task["active"]})
+                log_activity(ADMIN_ID, "admin_task_toggled", {"task_id": task_id, "active": task["active"]})
                 
                 # Refresh the view
                 bot_data = get_bot_data()
@@ -994,7 +990,7 @@ Select an option:
                 del tasks[i]
                 save_bot_data(bot_data)
                 bot.answer_callback_query(call.id, f"✅ Task '{task_title}' deleted!")
-                log_activity(call.from_user.id, "admin_task_deleted", {"task_id": task_id, "title": task_title})
+                log_activity(ADMIN_ID, "admin_task_deleted", {"task_id": task_id, "title": task_title})
                 
                 # Refresh the view
                 bot_data = get_bot_data()
@@ -1065,27 +1061,27 @@ Select what to edit:"""
     elif call.data.startswith("admin_task_edit_title_"):
         task_id = call.data.split("_")[-1]
         msg = bot.edit_message_text("📝 नया Task Title enter करें:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "task_edit_title", "task_id": task_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "task_edit_title", "task_id": task_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_task_edit_desc_"):
         task_id = call.data.split("_")[-1]
         msg = bot.edit_message_text("📄 नया Task Description enter करें:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "task_edit_desc", "task_id": task_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "task_edit_desc", "task_id": task_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_task_edit_link_"):
         task_id = call.data.split("_")[-1]
         msg = bot.edit_message_text("🔗 नया Task Link enter करें:", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "task_edit_link", "task_id": task_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "task_edit_link", "task_id": task_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_task_edit_reward_"):
         task_id = call.data.split("_")[-1]
         msg = bot.edit_message_text("💰 नया Task Reward enter करें (रुपये में):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "task_edit_reward", "task_id": task_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "task_edit_reward", "task_id": task_id, "message_id": msg.message_id}
     
     elif call.data.startswith("admin_task_edit_qty_"):
         task_id = call.data.split("_")[-1]
         msg = bot.edit_message_text("📊 नया Task Quantity enter करें (कितने users कर सकते हैं):", call.message.chat.id, call.message.message_id)
-        admin_state[call.from_user.id] = {"action": "task_edit_qty", "task_id": task_id, "message_id": msg.message_id}
+        admin_state[ADMIN_ID] = {"action": "task_edit_qty", "task_id": task_id, "message_id": msg.message_id}
 
 def show_users_page(chat_id, message_id, page, per_page):
     users_data = get_all_users_data()
@@ -1195,10 +1191,9 @@ def show_user_edit_options(chat_id, message_id, user_id):
     
     bot.edit_message_text(msg, chat_id, message_id, reply_markup=keyboard, parse_mode='Markdown')
 
-@bot.message_handler(func=lambda message: is_admin(message.from_user.id) and message.from_user.id in admin_state)
+@bot.message_handler(func=lambda message: message.from_user.id == ADMIN_ID and ADMIN_ID in admin_state)
 def handle_admin_input(message):
-    admin_id = message.from_user.id
-    state = admin_state.get(admin_id)
+    state = admin_state.get(ADMIN_ID)
     if not state:
         return
     
@@ -1211,92 +1206,92 @@ def handle_admin_input(message):
                 bot.delete_message(message.chat.id, message.message_id)
                 show_user_details(message.chat.id, state["message_id"], user_id)
             else:
-                bot.send_message(admin_id, f"❌ User ID {user_id} not found")
+                bot.send_message(ADMIN_ID, f"❌ User ID {user_id} not found")
         except:
-            bot.send_message(admin_id, "❌ Invalid User ID")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid User ID")
+        del admin_state[ADMIN_ID]
     
     elif action == "set_ref_reward":
         user_id = state["user_id"]
         try:
             if message.text.strip().lower() == "default":
                 set_user_custom_setting(user_id, "referral_reward", None)
-                bot.send_message(admin_id, f"✅ User {user_id} का Referral Reward default पर set हो गया")
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Referral Reward default पर set हो गया")
             else:
                 amount = float(message.text.strip())
                 set_user_custom_setting(user_id, "referral_reward", amount)
-                bot.send_message(admin_id, f"✅ User {user_id} का Referral Reward ₹{amount} set हो गया")
-            log_activity(admin_id, "admin_set_referral_reward", {"user_id": user_id, "amount": amount if message.text.strip().lower() != "default" else "default"})
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Referral Reward ₹{amount} set हो गया")
+            log_activity(ADMIN_ID, "admin_set_referral_reward", {"user_id": user_id, "amount": amount if message.text.strip().lower() != "default" else "default"})
         except:
-            bot.send_message(admin_id, "❌ Invalid amount")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid amount")
+        del admin_state[ADMIN_ID]
     
     elif action == "set_milestone_count":
         user_id = state["user_id"]
         try:
             if message.text.strip().lower() == "default":
                 set_user_custom_setting(user_id, "milestone_count", None)
-                bot.send_message(admin_id, f"✅ User {user_id} का Milestone Count default पर set हो गया")
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Milestone Count default पर set हो गया")
             else:
                 count = int(message.text.strip())
                 set_user_custom_setting(user_id, "milestone_count", count)
-                bot.send_message(admin_id, f"✅ User {user_id} का Milestone Count {count} set हो गया")
-            log_activity(admin_id, "admin_set_milestone_count", {"user_id": user_id, "count": count if message.text.strip().lower() != "default" else "default"})
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Milestone Count {count} set हो गया")
+            log_activity(ADMIN_ID, "admin_set_milestone_count", {"user_id": user_id, "count": count if message.text.strip().lower() != "default" else "default"})
         except:
-            bot.send_message(admin_id, "❌ Invalid number")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid number")
+        del admin_state[ADMIN_ID]
     
     elif action == "set_milestone_reward":
         user_id = state["user_id"]
         try:
             if message.text.strip().lower() == "default":
                 set_user_custom_setting(user_id, "milestone_reward", None)
-                bot.send_message(admin_id, f"✅ User {user_id} का Milestone Reward default पर set हो गया")
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Milestone Reward default पर set हो गया")
             else:
                 amount = float(message.text.strip())
                 set_user_custom_setting(user_id, "milestone_reward", amount)
-                bot.send_message(admin_id, f"✅ User {user_id} का Milestone Reward ₹{amount} set हो गया")
-            log_activity(admin_id, "admin_set_milestone_reward", {"user_id": user_id, "amount": amount if message.text.strip().lower() != "default" else "default"})
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Milestone Reward ₹{amount} set हो गया")
+            log_activity(ADMIN_ID, "admin_set_milestone_reward", {"user_id": user_id, "amount": amount if message.text.strip().lower() != "default" else "default"})
         except:
-            bot.send_message(admin_id, "❌ Invalid amount")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid amount")
+        del admin_state[ADMIN_ID]
     
     elif action == "set_welcome_bonus":
         user_id = state["user_id"]
         try:
             if message.text.strip().lower() == "default":
                 set_user_custom_setting(user_id, "welcome_bonus", None)
-                bot.send_message(admin_id, f"✅ User {user_id} का Welcome Bonus default पर set हो गया")
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Welcome Bonus default पर set हो गया")
             else:
                 amount = float(message.text.strip())
                 set_user_custom_setting(user_id, "welcome_bonus", amount)
-                bot.send_message(admin_id, f"✅ User {user_id} का Welcome Bonus ₹{amount} set हो गया")
-            log_activity(admin_id, "admin_set_welcome_bonus", {"user_id": user_id, "amount": amount if message.text.strip().lower() != "default" else "default"})
+                bot.send_message(ADMIN_ID, f"✅ User {user_id} का Welcome Bonus ₹{amount} set हो गया")
+            log_activity(ADMIN_ID, "admin_set_welcome_bonus", {"user_id": user_id, "amount": amount if message.text.strip().lower() != "default" else "default"})
         except:
-            bot.send_message(admin_id, "❌ Invalid amount")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid amount")
+        del admin_state[ADMIN_ID]
     
     elif action == "add_balance":
         user_id = state["user_id"]
         try:
             amount = float(message.text.strip())
             add_user_balance(user_id, amount)
-            bot.send_message(admin_id, f"✅ User {user_id} के balance में ₹{amount} add हो गया")
-            log_activity(admin_id, "admin_add_balance", {"user_id": user_id, "amount": amount})
+            bot.send_message(ADMIN_ID, f"✅ User {user_id} के balance में ₹{amount} add हो गया")
+            log_activity(ADMIN_ID, "admin_add_balance", {"user_id": user_id, "amount": amount})
         except:
-            bot.send_message(admin_id, "❌ Invalid amount")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid amount")
+        del admin_state[ADMIN_ID]
     
     elif action == "deduct_balance":
         user_id = state["user_id"]
         try:
             amount = float(message.text.strip())
             deduct_user_balance(user_id, amount)
-            bot.send_message(admin_id, f"✅ User {user_id} के balance से ₹{amount} deduct हो गया")
-            log_activity(admin_id, "admin_deduct_balance", {"user_id": user_id, "amount": amount})
+            bot.send_message(ADMIN_ID, f"✅ User {user_id} के balance से ₹{amount} deduct हो गया")
+            log_activity(ADMIN_ID, "admin_deduct_balance", {"user_id": user_id, "amount": amount})
         except:
-            bot.send_message(admin_id, "❌ Invalid amount")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid amount")
+        del admin_state[ADMIN_ID]
     
     elif action == "search_user_for_referral":
         try:
@@ -1305,10 +1300,10 @@ def handle_admin_input(message):
                 bot.delete_message(message.chat.id, message.message_id)
                 show_user_edit_options(message.chat.id, state["message_id"], user_id)
             else:
-                bot.send_message(admin_id, f"❌ User ID {user_id} not found")
+                bot.send_message(ADMIN_ID, f"❌ User ID {user_id} not found")
         except:
-            bot.send_message(admin_id, "❌ Invalid User ID")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid User ID")
+        del admin_state[ADMIN_ID]
     
     elif action == "search_user_for_balance":
         try:
@@ -1334,10 +1329,10 @@ Choose action:"""
                 
                 bot.edit_message_text(msg, message.chat.id, state["message_id"], reply_markup=keyboard, parse_mode='Markdown')
             else:
-                bot.send_message(admin_id, f"❌ User ID {user_id} not found")
+                bot.send_message(ADMIN_ID, f"❌ User ID {user_id} not found")
         except:
-            bot.send_message(admin_id, "❌ Invalid User ID")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid User ID")
+        del admin_state[ADMIN_ID]
     
     elif action == "search_user_for_block":
         try:
@@ -1367,10 +1362,10 @@ Choose action:"""
                 
                 bot.edit_message_text(msg, message.chat.id, state["message_id"], reply_markup=keyboard, parse_mode='Markdown')
             else:
-                bot.send_message(admin_id, f"❌ User ID {user_id} not found")
+                bot.send_message(ADMIN_ID, f"❌ User ID {user_id} not found")
         except:
-            bot.send_message(admin_id, "❌ Invalid User ID")
-        del admin_state[admin_id]
+            bot.send_message(ADMIN_ID, "❌ Invalid User ID")
+        del admin_state[ADMIN_ID]
     
     elif action == "edit_global_min_withdrawal":
         try:
@@ -1432,7 +1427,7 @@ Choose action:"""
                 bot_data["settings"] = {}
             bot_data["settings"]["referral_milestone_reward"] = amount
             save_bot_data(bot_data)
-            bot.send_message(ADMIN_ID, f"✅ सभी users के लिए Milestone Reward ₹{amount} set हो गया!\n\nअब milestone complete होने पर यह bonus मिलेगा।")
+            bot.send_message(ADMIN_ID, f"✅ सभी users के लिए Milestone Reward ₹{amount} set हो गया!\n\नअब milestone complete होने पर यह bonus मिलेगा।")
             
             msg_text = f"🔔 **Milestone Reward Updated!**\n\n🏆 New bonus: ₹{amount}\n\n🔗 Start referring: /refer"
             success, failed = broadcast_notification(msg_text)
@@ -2004,13 +1999,14 @@ def handle_verification_callbacks(call):
             if not task:
                 bot.edit_message_text("❌ Task not found", call.message.chat.id, call.message.message_id)
                 return
+            deduct_user_balance(user_id, task["reward"])
             clear_user_current_task(user_id)
-            bot.edit_message_caption(caption=f"❌ **Task Rejected**\n\nUser: {user_id}\nTask: {task['title']}\nStatus: Rejected", chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='Markdown')
+            bot.edit_message_caption(caption=f"❌ **Task Rejected**\n\nUser: {user_id}\nTask: {task['title']}\nPenalty: ₹{task['reward']} deducted", chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='Markdown')
             try:
-                bot.send_message(user_id, f"❌ **कार्य अस्वीकृत / Task Rejected**\n\n🎯 कार्य: {task['title']}\n📝 कारण: स्क्रीनशॉट सत्यापित नहीं हुआ\n\n🔄 कृपया सही स्क्रीनशॉट के साथ पुनः प्रयास करें", parse_mode='Markdown')
+                bot.send_message(user_id, f"❌ **कार्य अस्वीकृत / Task Rejected**\n\n🎯 कार्य: {task['title']}\n💸 दंड: ₹{task['reward']}\n⚠️ नकली स्क्रीनशॉट के लिए राशि काटी गई है", parse_mode='Markdown')
             except:
                 pass
-            log_activity(user_id, "task_rejected", {"task_id": task_id, "rejected_by": ADMIN_ID})
+            log_activity(user_id, "task_rejected", {"task_id": task_id, "penalty": task["reward"], "rejected_by": ADMIN_ID})
         elif action == "block":
             block_user(user_id)
             bot.edit_message_caption(caption=f"🚫 **User Blocked**\n\nUser ID: {user_id}\nStatus: Blocked by admin", chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='Markdown')
@@ -2020,21 +2016,15 @@ def handle_verification_callbacks(call):
                 pass
             log_activity(user_id, "user_blocked", {"blocked_by": ADMIN_ID})
 
-@bot.message_handler(func=lambda message: message.text and message.text.startswith('/') and message.text not in ['/start', '/newtask', '/balance', '/withdrawal', '/refer', '/help', '/admin'])
+@bot.message_handler(func=lambda message: message.text.startswith('/') and message.text not in ['/start', '/newtask', '/balance', '/withdrawal', '/refer', '/help', '/admin'])
 def handle_unknown_commands(message):
-    user_id = message.from_user.id
-    if is_user_blocked(user_id):
-        return
-    log_activity(user_id, "unknown_command", {"text": message.text})
+    log_activity(message.from_user.id, "unknown_command", {"text": message.text})
     bot.reply_to(message, "❌ यह कमांड मान्य नहीं है / This command is not valid\n\n✅ वैध कमांड / Valid commands:\n• /start - मेनू / Menu\n• 🎯 नया कार्य / New Task\n• 💰 बैलेंस / Balance\n• 💸 निकासी / Withdrawal\n• 🔗 रेफर / Refer\n• ❓ सहायता / Help")
 
 @bot.message_handler(content_types=['text'])
 def handle_text_messages(message):
-    user_id = message.from_user.id
-    if is_user_blocked(user_id):
-        return
-    if message.text and not message.text.startswith('/'):
-        log_activity(user_id, "text_message", {"text": message.text[:50]})
+    if not message.text.startswith('/'):
+        log_activity(message.from_user.id, "text_message", {"text": message.text[:50]})
         bot.reply_to(message, "📋 मेनू के लिए /start दबाएं या नीचे दिए गए बटन का उपयोग करें\nPress /start for menu or use the buttons below")
 
 def self_ping_loop():
